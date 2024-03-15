@@ -18,6 +18,7 @@ COPY . /app
 
 EXPOSE 8051
 
-CMD ["streamlit","run","app.py"]
+CMD ["streamlit", "run", "--server.address", "0.0.0.0", "app.py"]
+
 
 
