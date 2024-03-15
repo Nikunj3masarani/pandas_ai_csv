@@ -10,16 +10,18 @@ dotenv.load_dotenv('.env')
 
 deployment = os.environ.get('AZURE_DEPLOYMENT_NAME')
 
-st.set_page_config(page_title="PandasAI UI", page_icon="📄", layout="wide")
+st.set_page_config(page_title="BASF Data Copilot", page_icon="📄", layout="wide")
 
 st.markdown(
-    '<p style="display:inline-block;font-size:40px;font-weight:bold;">📊csvGPT </p>'
-    ' <p style="display:inline-block;font-size:16px;">csvGPT is tool that uses AI-powered '
-    'natural language processing to analyze and provide insights on CSV data. Users can '
-    'upload CSV files, view the data, and have interactive conversations with the AI model '
-    'to obtain valuable information and answers related to the uploaded data <br><br></p>',
-    unsafe_allow_html=True
-)
+    '''<h3>BASF Data Copilot📊</h3>
+              <p>Connect your structured data sources and extract insights in real time</p>
+              <p>BASF Data copilot is tool that uses AI-powered '
+              natural language processing to analyze and provide insights on CSV, Excel data. You can 
+              upload CSV files, view the data, and have interactive conversations with the AI model
+              to obtain valuable information and answers related to the uploaded data 
+              </p>
+              </br></br>
+            ''', unsafe_allow_html=True)
 
 
 def chat_with_csv(df, prompt):
@@ -46,11 +48,10 @@ if input_file is not None:
         input_text = st.text_area("Enter your query")
 
         if input_text is not None:
-            if st.button("Chat with CSV"):
+            if st.button("Chat with File"):
                 st.info("Your Query: " + input_text)
                 result = chat_with_csv(data, input_text)
                 st.success(result)
-
 
 hide_st_style = """
     <style>
