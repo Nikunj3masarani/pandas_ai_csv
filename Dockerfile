@@ -16,7 +16,7 @@ RUN pip install -r /app/requirements.txt --no-cache-dir
 # Copy current directory into working directory.
 COPY . /app
 
-EXPOSE 8051
+EXPOSE 8501
 
 CMD ["streamlit", "run", "--server.address", "0.0.0.0", "app.py"]
 
