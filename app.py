@@ -4,11 +4,14 @@ import pandas as pd
 import streamlit as st
 from pandasai import SmartDataframe
 from pandasai.llm.azure_openai import AzureOpenAI
+from pandasai.llm.local_llm import LocalLLM
+
 import dotenv
 
 dotenv.load_dotenv('.env')
 
 deployment = os.environ.get('AZURE_DEPLOYMENT_NAME')
+environment = os.environ.get('ENV')
 
 st.set_page_config(page_title="BASF Data Copilot", page_icon="📄", layout="wide")
 
@@ -25,7 +28,14 @@ st.markdown(
 
 
 def chat_with_csv(df, prompt):
-    llm = AzureOpenAI(deployment_name=deployment)
+    if environment == "BASF":
+        api_key = os.getenv("AZURE_OPENAI_API_KEY")
+        api_base = os.getenv("AZURE_OPENAI_ENDPOINT")
+        model = os.getenv("MODEL_NAME")
+        llm = LocalLLM(api_key=api_key, api_base=api_base, model=model)
+    else:
+        llm = AzureOpenAI(deployment_name=deployment)
+
     smart_df = SmartDataframe(df, config={"llm": llm})
     answer = smart_df.chat(prompt)
     return answer
